@@ -33,10 +33,18 @@ main {
 .filtres {
 	border-radius: 4px;
 	box-shadow: 0px 0px 4px gray;
+	align-items: center;
+	justify-items: center;
 	margin: 8px;
 	padding: 8px;
 	min-width: 300px;
 	min-height: 400px;
+}
+.filtres button {
+	align-items: center;
+	margin: 3px 15px 3px 15px;
+	width: 270px;
+	padding: 5px 10px 5px 10px;
 }
 .filtres h3 {
 	text-align: center;
@@ -48,6 +56,14 @@ main {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
 	gap: 4px;
+}
+.fiches button {
+	display: flex;
+	align-items: center;
+	margin: auto;
+	text-align: center;
+	border-radius: 8px;
+	padding: 8px;
 }
 .fiches article {
 	border: 2px solid black;
@@ -72,12 +88,13 @@ main {
 	text-align: center;
 }
 
-.filtres {
-	align-items: center;
+.slider-prix {
+	margin: 10px;
+	display: flex;
+	flex-direction: column;
+	text-align: center;
 }
-.filtres button {
-	align-items: center;
-	margin: 3px 15px 3px 15px;
-	width: 270px;
-	padding: 5px 10px 5px 10px;
+
+input {
+	margin: 5px;
 }

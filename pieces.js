@@ -1,5 +1,7 @@
+import { ajoutListenerAvis } from "./avis.js";
+
 // Récupération des pièces depuis le fichier JSON
-const reponse = await fetch("pieces-autos.json");
+const reponse = await fetch("http://localhost:8081/pieces");
 const pieces = await reponse.json();
 
 function genererPieces(pieces) {
@@ -28,6 +30,10 @@ function genererPieces(pieces) {
         const disponibiliteElement = document.createElement("p");
         disponibiliteElement.innerText = `${pieces[i].disponibilite ? "En stock" : "Rupture de stock"}`;
 
+        const avisBouton = document.createElement("button");
+        avisBouton.dataset.id = pieces[i].id;
+        avisBouton.textContent = "Afficher les avis";
+
         // Rattachement de l'image à pieceElement (la balise article)
         pieceElement.appendChild(imageElement)
         pieceElement.appendChild(nomElement);
@@ -35,9 +41,12 @@ function genererPieces(pieces) {
         pieceElement.appendChild(categorieElement);
         pieceElement.appendChild(descriptionElement);
         pieceElement.appendChild(disponibiliteElement);
+        pieceElement.appendChild(avisBouton);
         // Rattachement de la balise article à la section Fiches
         sectionFiches.appendChild(pieceElement);
     }
+
+    ajoutListenerAvis();
 }
 
 // Premier affichage de la page
