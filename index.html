@@ -16,17 +16,25 @@
 			<section class="filtres">
 				<h3>Filtres</h3>
 				<button class="btn-trier-croissant">Trier par prix croissant</button>
-				<br>
 				<button class="btn-trier-decroissant">Trier par prix décroissant</button>
-				<br>
 				<button class="btn-filtrer-prix">Filtrer les pièces non abordables</button>
-				<br>
 				<button class="btn-filtrer-description">Filtrer les pièces n'ayant pas de description</button>
-				<br>
 				<div class="slider-prix">
 					<label for="range">Prix maximum :</label>
 					<input type="range" name="prix-max" id="prix-max" min="0" max="60" step="5">
 				</div>
+				<h3>Ajouter un avis</h3>
+				<form class="formulaire-avis">
+					Identifiant de la pièce :
+					<input type="number" name="piece-id">
+					Nom d'utilisateur :<br>
+					<input type="text" name="utilisateur">
+					Nombre d'étoiles :
+					<input type="number" name="nbEtoiles" min="0" max="5">
+					Avis :
+					<textarea name="commentaire"></textarea>
+					<button>Envoyer</button>
+				</form>
 				
 			</section>
 
