@@ -9,15 +9,21 @@ export function ajoutListenerAvis() {
             const reponse = await fetch(`http://localhost:8081/pieces/${id}/avis`);
             const avis = await reponse.json();
 
-            const pieceElement = event.target.parentElement;
+            // Stockage des avis dans le localStorage
+            window.localStorage.setItem(`avis-piece-${id}`, JSON.stringify(avis));
 
-            const avisElement = document.createElement("p");
-            for (let i = 0; i < avis.length; i++) {
-                avisElement.innerHTML += `${avis[i].utilisateur} : ${avis[i].commentaire} <br>`;
-            }
-            pieceElement.appendChild(avisElement);
+            const pieceElement = event.target.parentElement;
+            afficherAvis(pieceElement, avis)
         });
     }
+}
+
+export function afficherAvis(pieceElement, avis) {
+    const avisElement = document.createElement("p");
+    for (let i = 0; i < avis.length; i++) {
+        avisElement.innerHTML += `<b>${avis[i].utilisateur} :</b> ${avis[i].commentaire} <br>`;
+    }
+    pieceElement.appendChild(avisElement);
 }
 
 export function ajoutListenerEnvoyerAvis() {

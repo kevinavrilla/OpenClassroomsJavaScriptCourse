@@ -45,8 +45,9 @@ main {
 	flex-direction: column;
 	align-items: center;
 	margin: 7px;
-	width: 230px;
-	padding: 5px;
+	width: 200px;
+	padding: 8px;
+	border-radius: 8px;
 }
 .filtres h3 {
 	text-align: center;
@@ -62,6 +63,19 @@ main {
 	margin-top: 5px;
 	margin-bottom: 10px;
 }
+.formulaire-avis input, textarea, button {
+	width: 150px;
+	border: solid 2px;
+	border-radius: 4px;
+	padding: 4px;
+}
+.formulaire-avis button {
+	width: fit-content;
+}
+
+button.btn-maj {
+	width: fit-content;
+}
 
 .fiches {
 	flex: 1;
@@ -73,6 +87,7 @@ main {
 .fiches button {
 	display: flex;
 	align-items: center;
+	width: fit-content;
 	margin: auto;
 	text-align: center;
 	border-radius: 8px;

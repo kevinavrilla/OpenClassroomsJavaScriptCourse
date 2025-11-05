@@ -1,37 +1,53 @@
-import { ajoutListenerAvis, ajoutListenerEnvoyerAvis } from "./avis.js";
+import { ajoutListenerAvis, ajoutListenerEnvoyerAvis, afficherAvis } from "./avis.js";
 
-// Récupération des pièces depuis le fichier JSON
-const reponse = await fetch("http://localhost:8081/pieces");
-const pieces = await reponse.json();
+// Récuération des pièces éentuellement stockées dans le localStorage
+let pieces = window.localStorage.getItem("pieces");
+if (pieces === null) {
+
+    // Récupération des pièces depuis l'API
+    const reponse = await fetch("http://localhost:8081/pieces");
+    pieces = await reponse.json();
+
+    // Transformation des pièces en JSON
+    const valeurPieces = JSON.stringify(pieces);
+
+    // Stockage des informations dans le localStorage
+    window.localStorage.setItem("pieces", valeurPieces);
+} else {
+    pieces = JSON.parse(pieces)
+}
 
 function genererPieces(pieces) {
     for (let i = 0; i < pieces.length; i++) {
+
+        const article = pieces[i]
         // Récupération de l'élément du DOM qui accueillera les fiches
         const sectionFiches = document.querySelector(".fiches");
         // Création d'une balise dédiée à une pièce
         const pieceElement = document.createElement("article");
+        pieceElement.dataset.id = pieces[i].id
         // Création de l'élément image
         const imageElement = document.createElement("img");
         // Accès à l'indice i de la liste pieces pour configurer la source de l'image
-        imageElement.src = pieces[i].image;
+        imageElement.src = article.image;
 
         const nomElement = document.createElement("h2");
-        nomElement.innerText = pieces[i].nom;
+        nomElement.innerText = article.nom;
 
         const prixElement = document.createElement("p");
-        prixElement.innerText = `Prix : ${pieces[i].prix} € (${pieces[i].prix < 35 ? "€" : "€€€"})`;
+        prixElement.innerText = `Prix : ${article.prix} € (${article.prix < 35 ? "€" : "€€€"})`;
 
         const categorieElement = document.createElement("p");
-        categorieElement.innerText = pieces[i].categorie ?? "(aucune catégorie)";
+        categorieElement.innerText = article.categorie ?? "(aucune catégorie)";
 
         const descriptionElement = document.createElement("p");
-        descriptionElement.innerText = pieces[i].description ?? "Pas de description pour le moment."
+        descriptionElement.innerText = article.description ?? "Pas de description pour le moment."
 
         const disponibiliteElement = document.createElement("p");
-        disponibiliteElement.innerText = `${pieces[i].disponibilite ? "En stock" : "Rupture de stock"}`;
+        disponibiliteElement.innerText = `${article.disponibilite ? "En stock" : "Rupture de stock"}`;
 
         const avisBouton = document.createElement("button");
-        avisBouton.dataset.id = pieces[i].id;
+        avisBouton.dataset.id = article.id;
         avisBouton.textContent = "Afficher les avis";
 
         // Rattachement de l'image à pieceElement (la balise article)
@@ -52,6 +68,17 @@ function genererPieces(pieces) {
 
 // Premier affichage de la page
 genererPieces(pieces);
+
+for (let i = 0; i < pieces.length; i++) {
+    const id = pieces[i].id;
+    const avisJSON = window.localStorage.getItem(`avis-piece-${id}`);
+    const avis = JSON.parse(avisJSON);
+
+    if (avis !== null) {
+        const pieceElement = document.querySelector(`article[data-id="${id}"]`);
+        afficherAvis(pieceElement, avis);
+    }
+}
 
 const boutonTrierCroissant = document.querySelector(".btn-trier-croissant");
 boutonTrierCroissant.addEventListener("click", function() {
@@ -149,3 +176,8 @@ inputPrixMax.addEventListener('input', function() {
 
 // Efface le contenu de la balise body et donc l’écran
 //document.querySelector(".fiches").innerHTML = '';
+
+const boutonMettreAJour = document.querySelector('.btn-maj')
+boutonMettreAJour.addEventListener('click', function() {
+    window.localStorage.removeItem("pieces")
+})
