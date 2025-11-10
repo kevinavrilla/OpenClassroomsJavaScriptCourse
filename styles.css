@@ -37,8 +37,15 @@ main {
 	justify-items: center;
 	margin: 4px;
 	padding: 8px;
-	min-width: 300px;
-	min-height: 400px;
+	min-width: 350px;
+	min-height: 350px;
+}
+.filtres canvas {
+	max-width: 300px;
+	max-height: 300px;
+	width: 100%;
+	height: auto;
+	display: block;
 }
 .filtres button {
 	display: flex;
@@ -51,6 +58,7 @@ main {
 }
 .filtres h3 {
 	text-align: center;
+	max-width: 300px;
 }
 .filtres form {
 	display: flex;

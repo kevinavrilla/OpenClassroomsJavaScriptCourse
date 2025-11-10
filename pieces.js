@@ -1,4 +1,4 @@
-import { ajoutListenerAvis, ajoutListenerEnvoyerAvis, afficherAvis } from "./avis.js";
+import { ajoutListenerAvis, ajoutListenerEnvoyerAvis, afficherAvis, afficherGraphiqueAvis, afficherGraphiqueAvisDisponibilite } from "./avis.js";
 
 // Récuération des pièces éentuellement stockées dans le localStorage
 let pieces = window.localStorage.getItem("pieces");
@@ -181,3 +181,6 @@ const boutonMettreAJour = document.querySelector('.btn-maj')
 boutonMettreAJour.addEventListener('click', function() {
     window.localStorage.removeItem("pieces")
 })
+
+afficherGraphiqueAvis();
+afficherGraphiqueAvisDisponibilite();
